@@ -7,7 +7,10 @@ The Future of Intelligence • Inventor of zkBridge and Expander • EXPchain: T
 - Website: https://www.polyhedra.network/
 - Twitter: [@PolyhedraZK](https://x.com/PolyhedraZK)
 
-
+## Update
+- using Proxy to get Faucet so no need to wait 10 minutes each claim
+- put proxy in `proxies.txt` 1 line 1 proxy
+  
 ## Features
 
 - **Auto Getting Faucets**
