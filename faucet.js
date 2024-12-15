@@ -3,9 +3,9 @@ import { readWallets, readProxies } from "./utils/script.js";
 import banner from "./utils/banner.js";
 import log from "./utils/logger.js";
 import readline from "readline";
-import axios from 'axios';  
-import { HttpsProxyAgent } from 'https-proxy-agent'; 
-import chalk from 'chalk';  
+import axios from 'axios';
+import { HttpsProxyAgent } from 'https-proxy-agent';
+import chalk from 'chalk';
 
 function askUserOption() {
     return new Promise((resolve) => {
@@ -40,21 +40,21 @@ function askApiKey(solverName) {
 
 async function getFaucet(payload, proxy) {
     const url = "https://faucetv2-api.expchain.ai/api/faucet";
-    
+
     try {
-        const agent = new HttpsProxyAgent(proxy);  
+        const agent = new HttpsProxyAgent(proxy);
 
         log.info("Getting Faucet...");
 
-        
+
         const response = await axios.post(url, payload, {
             headers: {
                 "Content-Type": "application/json",
             },
-            httpsAgent: agent,  
+            httpsAgent: agent,
         });
 
-        const data = response.data;  
+        const data = response.data;
         return data;
     } catch (error) {
         log.error("Error Getting Faucet:", error);
@@ -63,7 +63,7 @@ async function getFaucet(payload, proxy) {
 
 async function getFaucetAll() {
     log.warn(banner);
-    
+
     const wallets = readWallets();
     if (!wallets) {
         log.error("Please Create new wallets first...");
@@ -100,22 +100,22 @@ async function getFaucetAll() {
         for (const wallet of wallets) {
             log.info(`=== Starting Getting Faucet for wallet ${wallet.address} ===`);
 
-            const proxy = proxies[proxyIndex];  
-            log.info(chalk.cyan(`Using proxy: ${proxy}`));  
+            const proxy = 'http://' + proxies[proxyIndex];
+            log.info(chalk.cyan(`Using proxy: ${proxy}`));
 
             const payloadFaucet = {
                 chain_id: 18880,
                 to: wallet.address,
-                cf_turnstile_response: await solveCaptcha(apiKey),  
+                cf_turnstile_response: await solveCaptcha(apiKey),
             };
 
-            
+
             const faucet = await getFaucet(payloadFaucet, proxy);
 
             if (faucet && faucet.message === 'Success') {
-                log.info(chalk.green(`Faucet Success https://blockscout-testnet.expchain.ai/address/${wallet.address}`));  
+                log.info(chalk.green(`Faucet Success https://blockscout-testnet.expchain.ai/address/${wallet.address}`));
             } else {
-                log.error(chalk.red(`${faucet?.data || 'Unknown error'} Claim Faucet Failed...`));  
+                log.error(chalk.red(`${faucet?.data || 'Unknown error'} Claim Faucet Failed...`));
             }
 
             proxyIndex = (proxyIndex + 1) % proxies.length;
