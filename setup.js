@@ -3,8 +3,7 @@ import fs from 'fs';
 import { askQuestion } from "./utils/script.js";
 import log from "./utils/logger.js"
 import iniBapakBudi from "./utils/banner.js"
-import iniBapakBudi from "./utils/banner.js"
-import iniBapakBudi from "./utils/banner.js"
+
 
 // Function to create a new wallet
 function createNewWallet() {
