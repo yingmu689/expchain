@@ -5,7 +5,7 @@ import log from "./utils/logger.js";
 import readline from "readline";
 import axios from 'axios';
 import { HttpsProxyAgent } from 'https-proxy-agent';
-import chalk from 'chalk';
+
 
 function askUserOption() {
     return new Promise((resolve) => {
